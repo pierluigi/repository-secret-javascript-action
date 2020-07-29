@@ -5,13 +5,21 @@ const dotenv = require("dotenv"); // TODO remove for Action environment
 dotenv.config();
 
 let encrypt = async function (secretValue) {
+  console.log(`Token received: ${process.env.INPUT_TOKEN}`);
   const github = octokit.getOctokit(process.env.INPUT_TOKEN);
 
-  const {
-    data: { key: publicKey },
-  } = await github.actions.getOrgPublicKey({
+  //   const {
+  //     data: { key: publicKey },
+  //   } = await github.actions.getOrgPublicKey({
+  //     org: process.env.INPUT_OWNER,
+  //   });
+
+  const res = await github.actions.getOrgPublicKey({
     org: process.env.INPUT_OWNER,
   });
+  console.log("Received", res);
+
+  const publicKey = res.data.key;
 
   const encrypted = sodium.seal(
     Buffer.from(secretValue),

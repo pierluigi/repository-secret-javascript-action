@@ -289,8 +289,6 @@ const encrypt = __webpack_require__(561);
 async function run() {
   try {
     const value = core.getInput("value");
-    console.log(`Owner: ${process.env.INPUT_OWNER}`);
-    console.log(`Token: ${process.env.INPUT_TOKEN}`);
     const encrypted = await encrypt(value);
     core.info(`Encrypted ${encrypted} from ${value}`);
     console.log(encrypted);
@@ -4775,13 +4773,21 @@ const dotenv = __webpack_require__(63); // TODO remove for Action environment
 dotenv.config();
 
 let encrypt = async function (secretValue) {
+  console.log(`Token received: ${process.env.INPUT_TOKEN}`);
   const github = octokit.getOctokit(process.env.INPUT_TOKEN);
 
-  const {
-    data: { key: publicKey },
-  } = await github.actions.getOrgPublicKey({
+  //   const {
+  //     data: { key: publicKey },
+  //   } = await github.actions.getOrgPublicKey({
+  //     org: process.env.INPUT_OWNER,
+  //   });
+
+  const res = await github.actions.getOrgPublicKey({
     org: process.env.INPUT_OWNER,
   });
+  console.log("Received", res);
+
+  const publicKey = res.data.key;
 
   const encrypted = sodium.seal(
     Buffer.from(secretValue),
