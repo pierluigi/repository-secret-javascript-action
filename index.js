@@ -1,5 +1,5 @@
 const core = require('@actions/core')
-  , github = require('@action/github')
+  , github = require('@actions/github')
   , RepositorySecrets = require("./repository-secrets")
   ;
 
