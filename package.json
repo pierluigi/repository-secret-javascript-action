@@ -25,7 +25,11 @@
   },
   "homepage": "https://github.com/actions/javascript-action#readme",
   "dependencies": {
-    "@actions/core": "^1.1.1"
+    "@actions/core": "^1.1.1",
+    "@actions/github": "^4.0.0",
+    "dotenv": "^8.2.0",
+    "tweetnacl": "^1.0.3",
+    "tweetsodium": "0.0.5"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.22.3",
