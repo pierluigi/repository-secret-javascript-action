@@ -6,12 +6,12 @@
   "scripts": {
     "lint": "eslint .",
     "prepare": "ncc build index.js -o dist --source-map",
-    "test": "jest",
+    "test": "mocha --recursive \"**/*.test.js\"",
     "all": "npm run lint && npm run prepare && npm run test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/pierluigi/repository-secret-javascript-action"
   },
   "keywords": [
     "GitHub",
@@ -21,19 +21,18 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/pierluigi/repository-secret-javascript-action/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/pierluigi/repository-secret-javascript-action#readme",
   "dependencies": {
     "@actions/core": "^1.1.1",
     "@actions/github": "^4.0.0",
-    "dotenv": "^8.2.0",
-    "tweetnacl": "^1.0.3",
     "tweetsodium": "0.0.5"
   },
   "devDependencies": {
     "@zeit/ncc": "^0.22.3",
+    "chai": "^4.2.0",
     "eslint": "^7.4.0",
-    "jest": "^26.1.0"
+    "mocha": "^8.0.1"
   }
 }
