@@ -4,7 +4,11 @@ const encrypt = require("./encrypt");
 async function run() {
   try {
     const value = core.getInput("value");
-    const encrypted = await encrypt(value);
+    const encrypted = await encrypt(
+      value,
+      process.env.INPUT_TOKEN,
+      process.env.INPUT_OWNER
+    );
     // core.info(`Encrypted ${encrypted} from ${value}`);
     console.log(encrypted);
     // TODO store secret

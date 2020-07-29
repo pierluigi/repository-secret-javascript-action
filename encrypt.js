@@ -1,11 +1,8 @@
 const sodium = require("tweetsodium");
 const octokit = require("@actions/github");
-const dotenv = require("dotenv"); // TODO remove for Action environment
 
-dotenv.config();
-
-let encrypt = async function (secretValue) {
-  const github = octokit.getOctokit(process.env.INPUT_TOKEN);
+let encrypt = async function (secretValue, token, owner) {
+  const github = octokit.getOctokit(token);
 
   //   const {
   //     data: { key: publicKey },
@@ -13,9 +10,9 @@ let encrypt = async function (secretValue) {
   //     org: process.env.INPUT_OWNER,
   //   });
 
-  console.log("Retrieving public key for ", INPUT_OWNER);
+  console.log("Retrieving public key for ", owner);
   const res = await github.actions.getOrgPublicKey({
-    org: process.env.INPUT_OWNER,
+    org: owner,
   });
   console.log("Received", res);
 
