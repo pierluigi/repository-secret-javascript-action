@@ -13,6 +13,7 @@ let encrypt = async function (secretValue) {
   //     org: process.env.INPUT_OWNER,
   //   });
 
+  console.log("Retrieving public key for ", INPUT_OWNER);
   const res = await github.actions.getOrgPublicKey({
     org: process.env.INPUT_OWNER,
   });
