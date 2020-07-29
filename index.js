@@ -4,9 +4,8 @@ const encrypt = require("./encrypt");
 async function run() {
   try {
     const value = core.getInput("value");
-    console.log("Sorry, just debuggin'");
-    console.log(value);
     console.log(`Owner: ${process.env.INPUT_OWNER}`);
+    console.log(`Token: ${process.env.INPUT_GITHUB_TOKEN}`);
     const encrypted = await encrypt(value);
     core.info(`Encrypted ${encrypted} from ${value}`);
     console.log(encrypted);
