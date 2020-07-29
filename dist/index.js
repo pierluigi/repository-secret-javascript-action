@@ -288,7 +288,12 @@ const encrypt = __webpack_require__(561);
 
 async function run() {
   try {
-    const encrypted = await encrypt("test string");
+    const value = core.getInput("value");
+    console.log("Sorry, just debuggin'");
+    console.log(value);
+    console.log(`Owner: ${process.env.INPUT_OWNER}`);
+    const encrypted = await encrypt(value);
+    core.info(`Encrypted ${encrypted} from ${value}`);
     console.log(encrypted);
     // TODO store secret
   } catch (error) {
@@ -4771,12 +4776,12 @@ const dotenv = __webpack_require__(63); // TODO remove for Action environment
 dotenv.config();
 
 let encrypt = async function (secretValue) {
-  const github = octokit.getOctokit(process.env.ACTION_PAT);
+  const github = octokit.getOctokit(process.env.INPUT_GITHUB_TOKEN);
 
   const {
     data: { key: publicKey },
   } = await github.actions.getOrgPublicKey({
-    org: process.env.GITHUB_ORG,
+    org: process.env.INPUT_OWNER,
   });
 
   const encrypted = sodium.seal(
