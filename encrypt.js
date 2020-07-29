@@ -17,7 +17,7 @@ let encrypt = async function (secretValue) {
     Buffer.from(secretValue),
     Buffer.from(publicKey, "base64")
   );
-  console.log(Buffer.from(encrypted).toString("base64"));
+  //   console.log(Buffer.from(encrypted).toString("base64"));
 
   return encrypted;
 };

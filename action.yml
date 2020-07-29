@@ -1,13 +1,18 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: "Store encrypted secret"
+description: "Encrypts and stores a secret"
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  value: # id of input
+    description: "the value to be encrypted"
     required: true
-    default: '1000'
+  github-token: # id of input
+    description: "the PAT with admin scope and repo scope to retrieve the public key and store the secret"
+    required: true
+  github-org:
+    description: "the GitHub Organization or username"
+    required: true
 outputs:
-  time: # output will be available to future steps
-    description: 'The message to output'
+  encrypted: # output will be available to future steps
+    description: "The encrypted message"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"

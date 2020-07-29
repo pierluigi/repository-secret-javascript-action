@@ -5,6 +5,7 @@ async function run() {
   try {
     const encrypted = await encrypt("test string");
     console.log(encrypted);
+    // TODO store secret
   } catch (error) {
     core.setFailed(error.message);
   }
