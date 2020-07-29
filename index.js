@@ -1,20 +1,22 @@
-const core = require("@actions/core");
-const encrypt = require("./encrypt");
+const core = require('@actions/core')
+  , github = require('@actions/github')
+  , RepositorySecrets = require("./repository-secrets")
+  ;
 
 async function run() {
+  const token = core.getInput('github-token', {required: true})
+    , secretName = core.getInput('secret-name')
+    , secretValue = core.getInput('secret-value')
+    , repoName = core.getInput('repository') || process.env['GITHUB_REPOSITORY']
+    ;
+
+  const repoSecrets = new RepositorySecrets(github.getOctokit(token), repoName);
+
   try {
-    const value = core.getInput("value");
-    const encrypted = await encrypt(
-      value,
-      process.env.INPUT_TOKEN,
-      process.env.INPUT_OWNER
-    );
-    // core.info(`Encrypted ${encrypted} from ${value}`);
-    console.log(encrypted);
-    // TODO store secret
-  } catch (error) {
-    console.log("Error", error);
-    core.setFailed(error.message);
+    const result = await repoSecrets.saveOrUpdateSecret(secretName, secretValue);
+    core.info(`Secret ${secretName} ${result.state} on repository ${repoName}`);
+  } catch(err) {
+    core.setFailed(err);
   }
 }
 

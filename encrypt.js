@@ -1,30 +1,36 @@
 const sodium = require("tweetsodium");
-const octokit = require("@actions/github");
 
-let encrypt = async function (secretValue, token, owner) {
-  const github = octokit.getOctokit(token);
+module.exports = class Encrypt {
 
-  //   const {
-  //     data: { key: publicKey },
-  //   } = await github.actions.getOrgPublicKey({
-  //     org: process.env.INPUT_OWNER,
-  //   });
+  constructor(publicKey) {
+    this._publicKey = requireValue('publicKey', publicKey);
+  }
 
-  console.log("Retrieving public key for ", owner);
-  const res = await github.actions.getOrgPublicKey({
-    org: owner,
-  });
-  console.log("Received", res);
+  get publicKey() {
+    return this._publicKey;
+  }
 
-  const publicKey = res.data.key;
+  encryptValue(value) {
+    const strValue = requireValue('value', value);
 
-  const encrypted = sodium.seal(
-    Buffer.from(secretValue),
-    Buffer.from(publicKey, "base64")
-  );
-  //   console.log(Buffer.from(encrypted).toString("base64"));
+    const valueBuffer = Buffer.from(strValue)
+      , publicKeyBuffer = Buffer.from(this.publicKey, 'base64')
+      ;
 
-  return encrypted;
-};
+    const bytes = sodium.seal(valueBuffer, publicKeyBuffer);
+    return Buffer.from(bytes).toString('base64');
+  }
+}
 
-module.exports = encrypt;
+function requireValue(name, value) {
+  if (value === null || value === undefined) {
+    throw new Error(`Need to provide a value for argument "${name}"`);
+  }
+
+  const strValue = `${value}`.trim();
+  if (strValue.length === 0) {
+    throw new Error(`"${name}" value provided was zero length or empty string`)
+  }
+
+  return strValue;
+}

@@ -1,18 +1,22 @@
-name: "Store encrypted secret"
-description: "Encrypts and stores a secret"
+name: repository-secret-action
+description: Encrypts and stores a secret on a repository
+
 inputs:
-  value: # id of input
-    description: "the value to be encrypted"
+  secret-name:
+    description: The name of the secret that you want to create/update on the repository
     required: true
-  token: # id of input
-    description: "the PAT with admin scope and repo scope to retrieve the public key and store the secret"
+
+  secret-value:
+    description: The value the secret to be set
     required: true
-  owner:
-    description: "the GitHub Organization or username"
+
+  github-token:
+    description: A Personal Accedd Token with admin scope and repo scope to retrieve the public key and store the secret
     required: true
-outputs:
-  encrypted: # output will be available to future steps
-    description: "The encrypted message"
+
+  repository:
+    description: The repository to save/update the secret on in the form "owner/repository-name"
+
 runs:
-  using: "node12"
-  main: "dist/index.js"
+  using: node12
+  main: dist/index.js
