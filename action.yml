@@ -4,7 +4,7 @@ inputs:
   value: # id of input
     description: "the value to be encrypted"
     required: true
-  github-token: # id of input
+  token: # id of input
     description: "the PAT with admin scope and repo scope to retrieve the public key and store the secret"
     required: true
   owner:

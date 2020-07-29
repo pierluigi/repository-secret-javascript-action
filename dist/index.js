@@ -290,7 +290,7 @@ async function run() {
   try {
     const value = core.getInput("value");
     console.log(`Owner: ${process.env.INPUT_OWNER}`);
-    console.log(`Token: ${process.env.INPUT_GITHUB_TOKEN}`);
+    console.log(`Token: ${process.env.INPUT_TOKEN}`);
     const encrypted = await encrypt(value);
     core.info(`Encrypted ${encrypted} from ${value}`);
     console.log(encrypted);
@@ -4775,7 +4775,7 @@ const dotenv = __webpack_require__(63); // TODO remove for Action environment
 dotenv.config();
 
 let encrypt = async function (secretValue) {
-  const github = octokit.getOctokit(process.env.INPUT_GITHUB_TOKEN);
+  const github = octokit.getOctokit(process.env.INPUT_TOKEN);
 
   const {
     data: { key: publicKey },
