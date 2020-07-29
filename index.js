@@ -1,5 +1,5 @@
 const core = require("@actions/core");
-const encrypt = require("./encrypt");
+// const encrypt = require("./encrypt");
 
 async function run() {
   try {
