@@ -3,7 +3,9 @@ const encrypt = require("./encrypt");
 
 async function run() {
   try {
-    const encrypted = await encrypt("test string");
+    const value = core.getInput("value");
+    const encrypted = await encrypt(value);
+    core.info(`Encrypted ${encrypted} from ${value}`);
     console.log(encrypted);
     // TODO store secret
   } catch (error) {
