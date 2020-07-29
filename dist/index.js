@@ -4782,6 +4782,7 @@ let encrypt = async function (secretValue) {
   //     org: process.env.INPUT_OWNER,
   //   });
 
+  console.log("Client", github);
   const res = await github.actions.getOrgPublicKey({
     org: process.env.INPUT_OWNER,
   });
