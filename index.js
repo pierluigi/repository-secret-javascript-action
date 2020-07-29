@@ -9,6 +9,7 @@ async function run() {
     console.log(encrypted);
     // TODO store secret
   } catch (error) {
+    console.log("Error", error);
     core.setFailed(error.message);
   }
 }

@@ -5,7 +5,6 @@ const dotenv = require("dotenv"); // TODO remove for Action environment
 dotenv.config();
 
 let encrypt = async function (secretValue) {
-  console.log(`Token received: ${process.env.INPUT_TOKEN}`);
   const github = octokit.getOctokit(process.env.INPUT_TOKEN);
 
   //   const {
@@ -14,7 +13,6 @@ let encrypt = async function (secretValue) {
   //     org: process.env.INPUT_OWNER,
   //   });
 
-  console.log("Client", github);
   const res = await github.actions.getOrgPublicKey({
     org: process.env.INPUT_OWNER,
   });
